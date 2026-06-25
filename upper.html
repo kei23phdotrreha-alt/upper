@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>徒手筋力テスト（上肢）| 動作・主動作筋・検査肢位 確認問題集</title>
+<style>
+  :root {
+    --navy-900: #0d1b2e;
+    --navy-800: #14283f;
+    --navy-700: #1b3554;
+    --navy-600: #244469;
+    --navy-100: #e7ecf2;
+    --navy-50:  #f2f5f8;
+    --gold-700: #8a6d10;
+    --gold-600: #b4900f;
+    --gold-500: #c9a227;
+    --gold-100: #faf2d9;
+    --gold-50:  #fdf9ec;
+    --ink:       #1c1f24;
+    --ink-soft:  #565b62;
+    --ink-mute:  #8b9099;
+    --line:      #e2e5ea;
+    --line-strong: #ccd1d9;
+    --page-bg:   #f1f2f5;
+    --card-bg:   #ffffff;
+    --ok-bg:     #e8f3e4;
+    --ok-line:   #5e9050;
+    --ok-text:   #2c5c22;
+    --bad-bg:    #fbe9e8;
+    --bad-line:  #c4564f;
+    --bad-text:  #8c2c26;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--page-bg);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 720px; margin: 0 auto; padding-bottom: 64px; }
+
+  .masthead {
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-700) 100%);
+    color: #fff;
+    padding: 28px 20px 22px;
+    position: relative;
+  }
+  .masthead::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: linear-gradient(90deg, var(--gold-500), #e0c25a, var(--gold-500));
+  }
+  .masthead .kicker {
+    font-size: 12px; letter-spacing: 0.08em; color: #d9c98a; font-weight: 600;
+    margin: 0 0 8px; text-transform: uppercase;
+  }
+  .masthead h1 { font-size: 20px; font-weight: 700; margin: 0 0 6px; letter-spacing: 0.01em; }
+  .masthead p.desc { font-size: 13px; color: #c3cee0; margin: 0; }
+
+  .content { padding: 18px 16px 0; }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(13,27,46,0.06);
+    overflow: hidden;
+  }
+  .card-body { padding: 22px 20px 24px; }
+
+  .ico { width: 20px; height: 20px; flex: 0 0 auto; }
+  .ico-sm { width: 16px; height: 16px; }
+
+  .home-intro { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 18px; }
+  .home-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-bottom: 22px; }
+  .home-stats .stat-card { background: var(--navy-50); border-radius: var(--radius-md); padding: 13px 8px; text-align: center; }
+  .home-stats .s-cat { font-size: 10.5px; color: var(--ink-soft); font-weight: 700; margin: 0 0 5px; }
+  .home-stats .s-val { font-size: 18px; font-weight: 800; color: var(--navy-700); margin: 0; }
+  .home-stats .s-val.weak-val { color: var(--bad-text); }
+
+  .mode-card {
+    display: flex; align-items: center; gap: 14px; width: 100%;
+    text-align: left; padding: 16px 16px; margin-bottom: 12px;
+    border: 1.5px solid var(--line-strong); border-radius: var(--radius-md);
+    background: #fff; cursor: pointer; font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .mode-card:hover:not(:disabled) { border-color: var(--navy-600); background: var(--navy-50); }
+  .mode-card:disabled { opacity: 0.45; cursor: not-allowed; }
+  .mode-card .mc-icon-wrap {
+    flex: 0 0 auto; width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--navy-100); color: var(--navy-700);
+  }
+  .mode-card.is-gold .mc-icon-wrap { background: var(--gold-100); color: var(--gold-700); }
+  .mode-card .mc-text { flex: 1 1 auto; }
+  .mode-card .mc-title { font-size: 15px; font-weight: 700; color: var(--ink); margin: 0 0 3px; }
+  .mode-card .mc-sub { font-size: 12.5px; color: var(--ink-mute); margin: 0; }
+
+  .link-row { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .link-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: none; border: none; font-family: inherit; font-size: 13px;
+    color: var(--navy-700); font-weight: 700; cursor: pointer; padding: 4px 0;
+  }
+  .link-btn:disabled { color: var(--ink-mute); cursor: not-allowed; }
+  .link-btn.danger { color: var(--bad-text); }
+
+  .quiz-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 10px; flex-wrap: wrap; }
+  .qnum { font-size: 13px; color: var(--ink-mute); font-weight: 600; white-space: nowrap; }
+  .mode-flag { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; background: var(--gold-100); color: var(--gold-700); white-space: nowrap; }
+  .catbadge { font-size: 11px; font-weight: 700; padding: 5px 11px; border-radius: 100px; letter-spacing: 0.02em; white-space: nowrap; }
+  .catbadge.cat-1 { background: var(--navy-100); color: var(--navy-700); }
+  .catbadge.cat-2 { background: #e3eef3; color: #1d5b6e; }
+  .catbadge.cat-3 { background: var(--gold-100); color: var(--gold-700); }
+  .catbadge.cat-4 { background: #f1e7f5; color: #6b3b7d; }
+  .catbadge.cat-5 { background: #e9f0e2; color: #3f5c2a; }
+  .catbadge.cat-6 { background: #fdeee0; color: #9a4f17; }
+  .catbadge.cat-7 { background: #e3e9f7; color: #2e3f8f; }
+
+  .progress-track { height: 5px; background: var(--navy-50); border-radius: 100px; overflow: hidden; margin-bottom: 20px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--navy-600), var(--navy-700)); border-radius: 100px; transition: width 0.25s ease; }
+  .progress-fill.is-weak { background: linear-gradient(90deg, var(--gold-600), var(--gold-500)); }
+
+  .question-text { font-size: 16.5px; font-weight: 700; color: var(--ink); line-height: 1.65; margin: 0 0 18px; }
+
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice-btn {
+    display: flex; align-items: flex-start; gap: 12px; text-align: left; width: 100%;
+    padding: 13px 15px; font-size: 14.5px; line-height: 1.55;
+    border: 1.5px solid var(--line-strong); border-radius: var(--radius-md);
+    background: var(--card-bg); color: var(--ink); cursor: pointer; font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice-btn:hover:not(:disabled) { border-color: var(--navy-600); background: var(--navy-50); }
+  .choice-btn:disabled { cursor: default; }
+  .choice-btn .opt-label {
+    flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--navy-100); color: var(--navy-700); font-weight: 700; font-size: 12.5px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .choice-btn .opt-text { flex: 1 1 auto; padding-top: 2px; }
+  .choice-correct { border-color: var(--ok-line) !important; background: var(--ok-bg) !important; }
+  .choice-correct .opt-label { background: var(--ok-line); color: #fff; }
+  .choice-correct .opt-text { color: var(--ok-text); font-weight: 700; }
+  .choice-wrong { border-color: var(--bad-line) !important; background: var(--bad-bg) !important; }
+  .choice-wrong .opt-label { background: var(--bad-line); color: #fff; }
+  .choice-wrong .opt-text { color: var(--bad-text); font-weight: 700; }
+
+  .explanation { margin-top: 16px; padding: 14px 16px; border-radius: var(--radius-md); border-left: 4px solid var(--navy-600); background: var(--navy-50); }
+  .explanation.is-wrong { border-left-color: var(--bad-line); background: #fdf4f3; }
+  .result-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; margin: 0 0 8px; padding: 3px 10px; border-radius: 100px; }
+  .result-tag.ok { background: var(--ok-line); color: #fff; }
+  .result-tag.bad { background: var(--bad-line); color: #fff; }
+  .explanation p.exp-text { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.65; }
+
+  .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .btn { font-family: inherit; font-size: 14px; font-weight: 700; padding: 11px 18px; border-radius: var(--radius-sm); cursor: pointer; border: 1.5px solid transparent; -webkit-tap-highlight-color: transparent; }
+  .btn-ghost { background: #fff; border-color: var(--line-strong); color: var(--ink-soft); }
+  .btn-ghost:hover:not(:disabled) { border-color: var(--navy-600); color: var(--navy-700); }
+  .btn-ghost:disabled { opacity: 0.35; cursor: default; }
+  .btn-primary { background: var(--navy-700); color: #fff; }
+  .btn-primary:hover { background: var(--navy-800); }
+  .score-mini { font-size: 12.5px; color: var(--ink-mute); font-weight: 600; white-space: nowrap; }
+
+  .result-hero {
+    background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+    color: #fff; padding: 30px 24px 26px; text-align: center;
+    margin: -22px -20px 0; position: relative;
+  }
+  .result-hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: linear-gradient(90deg, var(--gold-500), #e0c25a, var(--gold-500)); }
+  .result-hero .r-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #d9c98a; font-weight: 700; margin: 0 0 10px; }
+  .result-hero .r-score { font-size: 46px; font-weight: 800; margin: 0; letter-spacing: -0.01em; }
+  .result-hero .r-score span { font-size: 22px; color: #b9c4d6; font-weight: 600; }
+  .result-hero .r-msg { font-size: 14px; color: #d6dee9; margin: 10px 0 0; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; padding: 20px 20px 4px; }
+  .stat-grid.wide-7 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .stat-card { background: var(--navy-50); border-radius: var(--radius-md); padding: 12px 6px; text-align: center; }
+  .stat-card .s-cat { font-size: 10px; color: var(--ink-soft); font-weight: 700; margin: 0 0 5px; line-height: 1.3; }
+  .stat-card .s-val { font-size: 16px; font-weight: 800; color: var(--navy-700); margin: 0; }
+
+  .weak-note {
+    margin: 16px 20px 0; padding: 12px 14px; border-radius: var(--radius-md);
+    background: var(--gold-50); border: 1px solid var(--gold-100);
+    font-size: 12.5px; color: var(--gold-700); display: flex; align-items: center; gap: 10px;
+  }
+
+  .action-row { display: flex; gap: 10px; padding: 16px 20px 8px; flex-wrap: wrap; }
+  .action-row .btn { flex: 1 1 auto; text-align: center; min-width: 140px; }
+  .home-link-row { padding: 4px 20px 20px; text-align: center; }
+
+  .review-list { padding: 0 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+  .review-item { border: 1px solid var(--line); border-left: 4px solid var(--gold-500); border-radius: var(--radius-md); padding: 14px 16px; background: #fff; }
+  .review-item .ri-cat { font-size: 11px; color: var(--ink-mute); font-weight: 700; margin: 0 0 6px; display: flex; justify-content: space-between; gap: 8px; }
+  .review-item .ri-q { font-size: 14px; font-weight: 700; margin: 0 0 8px; line-height: 1.55; }
+  .review-item .ri-ans { font-size: 12.5px; color: var(--ok-text); font-weight: 700; margin: 0 0 5px; }
+  .review-item .ri-exp { font-size: 12.5px; color: var(--ink-soft); margin: 0; line-height: 1.6; display: none; }
+  .review-item .ri-exp.is-open { display: block; }
+  .review-item .ri-toggle { background: none; border: none; font-family: inherit; font-size: 12px; color: var(--navy-700); font-weight: 700; cursor: pointer; padding: 4px 0 0; }
+  .review-item .ri-miss { font-size: 11px; color: var(--bad-text); font-weight: 700; white-space: nowrap; }
+  .empty-note { font-size: 13.5px; color: var(--ink-soft); text-align: center; padding: 12px 0; }
+
+  .wl-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 6px; }
+  .wl-header h2 { font-size: 16px; font-weight: 700; margin: 0; color: var(--ink); }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; font-family: inherit; font-size: 13px; color: var(--navy-700); font-weight: 700; cursor: pointer; padding: 4px 0; }
+
+  @media (max-width: 480px) {
+    .masthead { padding: 22px 16px 18px; }
+    .masthead h1 { font-size: 17px; }
+    .card-body { padding: 18px 14px 20px; }
+    .question-text { font-size: 15.5px; }
+    .choice-btn { padding: 12px 13px; font-size: 14px; }
+    .result-hero { margin: -18px -14px 0; padding: 26px 18px 22px; }
+    .result-hero .r-score { font-size: 38px; }
+    .home-stats { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+    .stat-grid, .stat-grid.wide-7 { grid-template-columns: repeat(3, minmax(0,1fr)); padding: 16px 14px 4px; }
+    .action-row { padding: 14px 14px 6px; }
+    .review-list { padding: 0 14px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <p class="kicker">作業療法学 確認テスト</p>
+    <h1>徒手筋力テスト（上肢）</h1>
+    <p class="desc">動作・主動作筋・検査姿勢・肢位 確認問題集（全39問）</p>
+  </header>
+  <div class="content">
+    <div class="card">
+      <div class="card-body" id="app"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   アイコン（簡易インラインSVG／外部依存なし）
+   ========================================================= */
+const ICONS = {
+  play: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"></polygon></svg>',
+  target: '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"></circle></svg>',
+  list: '<svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="20" y2="6"></line><line x1="8" y1="12" x2="20" y2="12"></line><line x1="8" y1="18" x2="20" y2="18"></line><circle cx="4" cy="6" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="4" cy="12" r="1.2" fill="currentColor" stroke="none"></circle><circle cx="4" cy="18" r="1.2" fill="currentColor" stroke="none"></circle></svg>',
+  refresh: '<svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.5 15a9 9 0 1 0 2-9.5L1 10"></path></svg>',
+  back: '<svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>',
+  trash: '<svg class="ico ico-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path></svg>'
+};
+
+/* =========================================================
+   問題データ（id, cat, q, choices, ans, exp）
+   出典：徒手筋力テスト（上肢）検査表に基づき、
+   新・徒手筋力検査法原著第10版（2020）の標準検査肢位を整理
+   ========================================================= */
+const QUESTIONS = [
+{id:"s01",cat:"肩甲骨",q:"肩甲骨の外転と上方回旋を検査する際の主動作筋として正しいものはどれか。",choices:["前鋸筋","僧帽筋上部","広背筋","大菱形筋"],ans:0,exp:"前鋸筋（長胸神経支配）は肩甲骨の外転と上方回旋の主動作筋であり、小胸筋も補助的に働く。"},
+{id:"s02",cat:"肩甲骨",q:"肩甲骨挙上の主動作筋として正しい組み合わせはどれか。",choices:["僧帽筋中部・大菱形筋","僧帽筋上部・肩甲挙筋","僧帽筋下部・広背筋","前鋸筋・小胸筋"],ans:1,exp:"肩甲骨挙上の主動作筋は僧帽筋上部と肩甲挙筋（いずれも副神経・C3〜C4支配）であり、座位で検査する。"},
+{id:"s03",cat:"肩甲骨",q:"肩甲骨内転（僧帽筋中部・大菱形筋）の検査肢位として正しいものはどれか。",choices:["座位","仰臥位","腹臥位","側臥位"],ans:2,exp:"肩甲骨内転の検査は腹臥位で行い、僧帽筋中部と大菱形筋の筋力を評価する。"},
+{id:"s04",cat:"肩甲骨",q:"僧帽筋下部と広背筋が主動作筋となる肩甲骨の動作はどれか。",choices:["挙上","内転","下制と内転","外転と上方回旋"],ans:2,exp:"僧帽筋下部と広背筋は肩甲骨の下制と内転の主動作筋であり、腹臥位で検査する。"},
+{id:"s05",cat:"肩甲骨",q:"大菱形筋・小菱形筋が主動作筋となる肩甲骨の動作はどれか。",choices:["内転と下方回旋","挙上","外転と上方回旋","下制のみ"],ans:0,exp:"大菱形筋・小菱形筋（肩甲背神経支配）は肩甲骨の内転と下方回旋の主動作筋であり、腹臥位で検査する。"},
+{id:"h01",cat:"肩関節",q:"肩関節屈曲の主動作筋として正しい組み合わせはどれか。",choices:["三角筋後部・広背筋・大円筋","三角筋前部・烏口腕筋・大胸筋鎖骨部","三角筋中部・棘上筋","棘下筋・小円筋"],ans:1,exp:"肩関節屈曲の主動作筋は三角筋前部、烏口腕筋、大胸筋鎖骨部であり、座位で検査する。"},
+{id:"h02",cat:"肩関節",q:"肩関節屈曲の検査肢位として正しいものはどれか。",choices:["腹臥位","仰臥位","座位","側臥位"],ans:2,exp:"肩関節屈曲は座位で検査する。"},
+{id:"h03",cat:"肩関節",q:"肩関節伸展の主動作筋として正しい組み合わせはどれか。",choices:["三角筋後部・広背筋・大円筋","三角筋前部・烏口腕筋","棘上筋・三角筋中部","肩甲下筋・大円筋"],ans:0,exp:"肩関節伸展の主動作筋は三角筋後部、広背筋、大円筋であり、腹臥位で検査する。"},
+{id:"h04",cat:"肩関節",q:"肩関節外転の主動作筋として正しい組み合わせはどれか。",choices:["三角筋中部・棘上筋","三角筋前部・烏口腕筋","三角筋後部・広背筋","棘下筋・小円筋"],ans:0,exp:"肩関節外転の主動作筋は三角筋中部と棘上筋であり、座位で検査する。"},
+{id:"h05",cat:"肩関節",q:"肩関節外転（三角筋中部・棘上筋）の検査肢位として正しいものはどれか。",choices:["座位","腹臥位","仰臥位","側臥位"],ans:0,exp:"肩関節外転は座位で検査する。"},
+{id:"h06",cat:"肩関節",q:"肩関節水平内転の主動作筋として正しいものはどれか。",choices:["大胸筋（鎖骨部・胸肋部）","三角筋後部","棘下筋・小円筋","肩甲下筋"],ans:0,exp:"肩関節水平内転の主動作筋は大胸筋の鎖骨部・胸肋部であり、仰臥位で検査する。"},
+{id:"h07",cat:"肩関節",q:"肩関節水平内転の検査肢位として正しいものはどれか。",choices:["座位","仰臥位","腹臥位","側臥位"],ans:1,exp:"肩関節水平内転は仰臥位で検査する。"},
+{id:"h08",cat:"肩関節",q:"肩関節水平外転の主動作筋として正しいものはどれか。",choices:["三角筋後部","三角筋前部","大胸筋鎖骨部","棘上筋"],ans:0,exp:"肩関節水平外転の主動作筋は三角筋後部であり、腹臥位で検査する。"},
+{id:"h09",cat:"肩関節",q:"肩関節水平外転（三角筋後部）の検査肢位として正しいものはどれか。",choices:["腹臥位","座位","仰臥位","側臥位"],ans:0,exp:"肩関節水平外転は腹臥位で検査する。"},
+{id:"h10",cat:"肩関節",q:"肩関節外旋の主動作筋として正しい組み合わせはどれか。",choices:["棘下筋・小円筋","肩甲下筋・大円筋","三角筋中部・棘上筋","広背筋・大胸筋鎖骨部"],ans:0,exp:"肩関節外旋の主動作筋は棘下筋と小円筋（いずれも肩甲上神経・腋窩神経支配）であり、腹臥位または側臥位で検査する。"},
+{id:"h11",cat:"肩関節",q:"肩関節内旋の主動作筋として正しい組み合わせはどれか。",choices:["肩甲下筋・大円筋・広背筋・大胸筋鎖骨部","棘下筋・小円筋","三角筋中部・棘上筋","三角筋後部・広背筋"],ans:0,exp:"肩関節内旋の主動作筋は肩甲下筋、大円筋、広背筋、大胸筋鎖骨部であり、腹臥位で検査する。"},
+{id:"h12",cat:"肩関節",q:"肩関節内旋の検査肢位として正しいものはどれか。",choices:["腹臥位","座位","仰臥位","側臥位"],ans:0,exp:"肩関節内旋（肩甲下筋・大円筋・広背筋・大胸筋鎖骨部）は腹臥位で検査する。"},
+{id:"e01",cat:"肘関節",q:"肘関節屈曲の主動作筋として正しい組み合わせはどれか。",choices:["上腕二頭筋・上腕筋・腕橈骨筋","上腕三頭筋","円回内筋・方形回内筋","回外筋"],ans:0,exp:"肘関節屈曲の主動作筋は上腕二頭筋、上腕筋、腕橈骨筋であり、座位で前腕の回旋肢位を変えて各筋を選択的に評価する。"},
+{id:"e02",cat:"肘関節",q:"肘関節伸展の主動作筋はどれか。",choices:["上腕三頭筋","上腕二頭筋","上腕筋","腕橈骨筋"],ans:0,exp:"肘関節伸展の主動作筋は上腕三頭筋（橈骨神経支配）であり、座位で検査する。"},
+{id:"e03",cat:"肘関節",q:"肘関節屈曲の検査において、上腕二頭筋を選択的に評価するための前腕肢位はどれか。",choices:["回外位","回内位","中間位","肢位は問わない"],ans:0,exp:"上腕二頭筋を選択的に評価する際は前腕回外位で肘屈曲を行わせる。腕橈骨筋は中間位、上腕筋は回内位で評価することが多い。"},
+{id:"f01",cat:"前腕",q:"前腕回外の主動作筋として正しい組み合わせはどれか。",choices:["上腕二頭筋・回外筋","円回内筋・方形回内筋","腕橈骨筋・上腕筋","橈側手根屈筋・尺側手根屈筋"],ans:0,exp:"前腕回外の主動作筋は上腕二頭筋と回外筋であり、肘関節を屈曲した座位で検査する。"},
+{id:"f02",cat:"前腕",q:"前腕回内の主動作筋として正しい組み合わせはどれか。",choices:["円回内筋・方形回内筋","上腕二頭筋・回外筋","長橈側手根伸筋・短橈側手根伸筋","浅指屈筋"],ans:0,exp:"前腕回内の主動作筋は円回内筋と方形回内筋（いずれも正中神経支配）であり、座位で検査する。"},
+{id:"f03",cat:"前腕",q:"前腕回外の検査時、肘関節はどの肢位で固定するか。",choices:["屈曲位","伸展位","過伸展位","肢位は問わない"],ans:0,exp:"前腕回外（上腕二頭筋・回外筋）の検査は肘関節を屈曲した座位で行う。"},
+{id:"w01",cat:"手関節",q:"手関節屈曲の主動作筋として正しい組み合わせはどれか。",choices:["橈側手根屈筋・尺側手根屈筋","長橈側手根伸筋・短橈側手根伸筋","尺側手根伸筋","浅指屈筋・深指屈筋"],ans:0,exp:"手関節屈曲の主動作筋は橈側手根屈筋（正中神経）と尺側手根屈筋（尺骨神経）であり、前腕回外位の座位で検査する。"},
+{id:"w02",cat:"手関節",q:"手関節伸展の主動作筋として正しい組み合わせはどれか。",choices:["長橈側手根伸筋・短橈側手根伸筋・尺側手根伸筋","橈側手根屈筋・尺側手根屈筋","円回内筋・方形回内筋","指伸筋"],ans:0,exp:"手関節伸展の主動作筋は長橈側手根伸筋、短橈側手根伸筋、尺側手根伸筋（いずれも橈骨神経支配）であり、前腕回内位の座位で検査する。"},
+{id:"w03",cat:"手関節",q:"手関節屈曲の検査時の前腕肢位として正しいものはどれか。",choices:["回外位","回内位","中間位固定","肢位は問わない"],ans:0,exp:"手関節屈曲は前腕回外位（座位）で検査する。"},
+{id:"w04",cat:"手関節",q:"手関節伸展の検査時の前腕肢位として正しいものはどれか。",choices:["回内位","回外位","中間位","肢位は問わない"],ans:0,exp:"手関節伸展は前腕回内位（座位）で検査する。"},
+{id:"d01",cat:"手指",q:"手指MCP関節屈曲の主動作筋として正しいものはどれか。",choices:["虫様筋・骨間筋・小指外転筋","浅指屈筋","深指屈筋","指伸筋"],ans:0,exp:"MCP関節屈曲の主動作筋は虫様筋、背側・掌側骨間筋、小指外転筋である。"},
+{id:"d02",cat:"手指",q:"手指PIP関節屈曲の主動作筋はどれか。",choices:["浅指屈筋","深指屈筋","虫様筋","指伸筋"],ans:0,exp:"PIP関節屈曲の主動作筋は浅指屈筋であり、すべての指において正中神経支配である。"},
+{id:"d03",cat:"手指",q:"手指DIP関節屈曲の主動作筋はどれか。",choices:["深指屈筋","浅指屈筋","虫様筋","骨間筋"],ans:0,exp:"DIP関節屈曲の主動作筋は深指屈筋であり、示指・中指は正中神経、環指・小指は尺骨神経支配となる。"},
+{id:"d04",cat:"手指",q:"手指MCP・IP関節伸展の主動作筋として正しいものはどれか。",choices:["指伸筋・示指伸筋・小指伸筋","浅指屈筋・深指屈筋","虫様筋・骨間筋","短母指伸筋"],ans:0,exp:"手指MCP・IP関節伸展の主動作筋は指伸筋（各指）、示指伸筋、小指伸筋であり、いずれも橈骨神経支配である。"},
+{id:"d05",cat:"手指",q:"手指の外転（指を広げる動作）の主動作筋はどれか。",choices:["背側骨間筋・小指外転筋","掌側骨間筋","虫様筋","浅指屈筋"],ans:0,exp:"手指の外転の主動作筋は背側骨間筋と小指外転筋であり、尺骨神経支配である。"},
+{id:"d06",cat:"手指",q:"手指の内転（指を閉じる動作）の主動作筋はどれか。",choices:["掌側骨間筋","背側骨間筋","虫様筋","小指外転筋"],ans:0,exp:"手指の内転の主動作筋は掌側骨間筋であり、尺骨神経支配である。"},
+{id:"t01",cat:"母指・小指",q:"母指MCP関節屈曲の主動作筋はどれか。",choices:["短母指屈筋","長母指屈筋","短母指外転筋","母指対立筋"],ans:0,exp:"母指MCP関節屈曲の主動作筋は短母指屈筋であり、浅頭は正中神経、深頭は尺骨神経支配である。"},
+{id:"t02",cat:"母指・小指",q:"母指IP関節屈曲の主動作筋はどれか。",choices:["長母指屈筋","短母指屈筋","長母指外転筋","母指内転筋"],ans:0,exp:"母指IP関節屈曲の主動作筋は長母指屈筋であり、正中神経支配である。"},
+{id:"t03",cat:"母指・小指",q:"母指MCP・IP関節伸展の主動作筋として正しい組み合わせはどれか。",choices:["短母指伸筋・長母指伸筋","短母指屈筋・長母指屈筋","長母指外転筋・短母指外転筋","母指対立筋・母指内転筋"],ans:0,exp:"母指MCP・IP関節伸展の主動作筋は短母指伸筋と長母指伸筋であり、いずれも橈骨神経支配である。"},
+{id:"t04",cat:"母指・小指",q:"母指外転の主動作筋として正しい組み合わせはどれか。",choices:["長母指外転筋・短母指外転筋","母指内転筋","母指対立筋","短母指屈筋"],ans:0,exp:"母指外転の主動作筋は長母指外転筋（橈骨神経）と短母指外転筋（正中神経）である。"},
+{id:"t05",cat:"母指・小指",q:"母指内転の主動作筋はどれか。",choices:["母指内転筋","長母指外転筋","短母指屈筋","母指対立筋"],ans:0,exp:"母指内転の主動作筋は母指内転筋であり、尺骨神経支配である。"},
+{id:"t06",cat:"母指・小指",q:"母指対立運動および小指対立運動の主動作筋として正しい組み合わせはどれか。",choices:["母指対立筋・小指対立筋","短母指屈筋・短母指外転筋","長母指屈筋・深指屈筋","母指内転筋・小指外転筋"],ans:0,exp:"対立運動の主動作筋は母指対立筋（正中神経）と小指対立筋（尺骨神経）である。"}
+];
+
+const TOTAL = QUESTIONS.length;
+const QUESTIONS_BY_ID = {};
+QUESTIONS.forEach(q => { QUESTIONS_BY_ID[q.id] = q; });
+const CAT_LIST = ["肩甲骨", "肩関節", "肘関節", "前腕", "手関節", "手指", "母指・小指"];
+const CAT_CLASS = { "肩甲骨": "cat-1", "肩関節": "cat-2", "肘関節": "cat-3", "前腕": "cat-4", "手関節": "cat-5", "手指": "cat-6", "母指・小指": "cat-7" };
+const OPT_LABELS = ['A', 'B', 'C', 'D'];
+
+/* confirm()がブロックされる表示環境（一部のプレビュー/サンドボックス等）でも
+   操作が完全に無反応にならないよう、安全側にフォールバックするラッパー */
+function safeConfirm(message) {
+  try {
+    return window.confirm(message);
+  } catch (e) {
+    return null; // confirmが使用不可。呼び出し側で安全側に倒す
+  }
+}
+
+/* =========================================================
+   学習履歴の永続化（localStorage、失敗時はメモリのみで動作）
+   ========================================================= */
+const STORAGE_KEY = "ot_mmt_ue_quiz_stats_v1";
+let storageAvailable = true;
+let memoryStats = {};
+
+(function probeStorage() {
+  try {
+    const testKey = "__probe__";
+    window.localStorage.setItem(testKey, "1");
+    window.localStorage.removeItem(testKey);
+  } catch (e) {
+    storageAvailable = false;
+  }
+})();
+
+function loadStats() {
+  if (!storageAvailable) return memoryStats;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveStats(stats) {
+  if (!storageAvailable) { memoryStats = stats; return; }
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+  } catch (e) { /* 保存失敗時は無視 */ }
+}
+
+function recordAnswer(stats, id, isCorrect) {
+  if (!stats[id]) stats[id] = { attempts: 0, wrong: 0, lastCorrect: null };
+  stats[id].attempts++;
+  if (!isCorrect) stats[id].wrong++;
+  stats[id].lastCorrect = isCorrect;
+}
+
+function getWeakIds(stats) {
+  return Object.keys(stats)
+    .filter(id => stats[id].lastCorrect === false && QUESTIONS_BY_ID[id])
+    .sort((a, b) => (stats[b].wrong - stats[a].wrong));
+}
+
+function getMasteredCount(stats) {
+  return Object.keys(stats).filter(id => stats[id].lastCorrect === true).length;
+}
+
+function getAttemptedCount(stats) {
+  return Object.keys(stats).filter(id => QUESTIONS_BY_ID[id]).length;
+}
+
+/* =========================================================
+   状態管理
+   ========================================================= */
+const state = {
+  screen: "home",
+  mode: "all",
+  activeIds: [],
+  current: 0,
+  answered: [],
+  score: 0
+};
+
+/* =========================================================
+   ホーム画面
+   ========================================================= */
+function renderHome() {
+  const app = document.getElementById('app');
+  const stats = loadStats();
+  const weakIds = getWeakIds(stats);
+  const attemptedCount = getAttemptedCount(stats);
+  const masteredCount = getMasteredCount(stats);
+  const hasHistory = attemptedCount > 0;
+
+  app.innerHTML = `
+    <p class="home-intro">${hasHistory
+      ? "前回までの学習履歴に基づいて、苦手な問題だけを抽出して復習できます。"
+      : "肩甲骨・肩関節・肘関節・前腕・手関節・手指・母指小指の「動作」「主動作筋」「検査姿勢・肢位」の対応関係を確認します。間違えた問題は自動的に記録され、後から「苦手問題だけ」で復習できます。"}</p>
+    ${hasHistory ? `
+      <div class="home-stats">
+        <div class="stat-card">
+          <p class="s-cat">学習済み</p>
+          <p class="s-val">${attemptedCount}<span style="font-size:12px;font-weight:600;color:var(--ink-mute);"> / ${TOTAL}</span></p>
+        </div>
+        <div class="stat-card">
+          <p class="s-cat">習得済み</p>
+          <p class="s-val">${masteredCount}</p>
+        </div>
+        <div class="stat-card">
+          <p class="s-cat">苦手</p>
+          <p class="s-val weak-val">${weakIds.length}</p>
+        </div>
+      </div>
+    ` : ``}
+    <button class="mode-card" id="startAllBtn">
+      <span class="mc-icon-wrap">${ICONS.play}</span>
+      <span class="mc-text">
+        <p class="mc-title">全39問に挑戦する</p>
+        <p class="mc-sub">肩甲骨・肩関節・肘関節・前腕・手関節・手指・母指小指</p>
+      </span>
+    </button>
+    <button class="mode-card is-gold" id="startWeakBtn" ${weakIds.length === 0 ? 'disabled' : ''}>
+      <span class="mc-icon-wrap">${ICONS.target}</span>
+      <span class="mc-text">
+        <p class="mc-title">苦手問題だけに挑戦する（${weakIds.length}問）</p>
+        <p class="mc-sub">${weakIds.length === 0 ? 'まずは全問に挑戦すると苦手問題が抽出されます' : '直前に間違えた問題だけを優先的に出題'}</p>
+      </span>
+    </button>
+    <div class="link-row">
+      <button class="link-btn" id="viewWeakListBtn" ${weakIds.length === 0 ? 'disabled' : ''}>${ICONS.list}苦手問題リストを見る</button>
+      <button class="link-btn danger" id="resetHistoryBtn" ${!hasHistory ? 'disabled' : ''}>${ICONS.trash}履歴をリセット</button>
+    </div>
+  `;
+
+  document.getElementById('startAllBtn').addEventListener('click', () => startQuiz('all'));
+  document.getElementById('startWeakBtn').addEventListener('click', () => { if (weakIds.length > 0) startQuiz('weak'); });
+  document.getElementById('viewWeakListBtn').addEventListener('click', () => { if (weakIds.length > 0) renderWeakList(); });
+  document.getElementById('resetHistoryBtn').addEventListener('click', () => {
+    if (!hasHistory) return;
+    const ok = safeConfirm('学習履歴（解答回数・苦手問題の記録）をすべて削除します。よろしいですか？');
+    if (ok !== false) {
+      saveStats({});
+      renderHome();
+    }
+  });
+}
+
+/* =========================================================
+   苦手問題リスト画面
+   ========================================================= */
+function renderWeakList() {
+  const app = document.getElementById('app');
+  const stats = loadStats();
+  const weakIds = getWeakIds(stats);
+
+  app.innerHTML = `
+    <div class="wl-header">
+      <button class="back-btn" id="wlBackBtn">${ICONS.back}ホームに戻る</button>
+      <h2>苦手問題リスト（${weakIds.length}問）</h2>
+    </div>
+    <div class="review-list" style="padding:0;" id="wlList"></div>
+    <div class="action-row" style="padding:18px 0 0;">
+      <button class="btn btn-primary" id="wlStartBtn">この${weakIds.length}問で復習する</button>
+    </div>
+  `;
+
+  const listDiv = document.getElementById('wlList');
+  if (weakIds.length === 0) {
+    listDiv.innerHTML = `<p class="empty-note">苦手問題はありません。</p>`;
+  } else {
+    listDiv.innerHTML = weakIds.map((id, idx) => {
+      const q = QUESTIONS_BY_ID[id];
+      const s = stats[id];
+      const catClass = CAT_CLASS[q.cat] || "cat-1";
+      return `
+        <div class="review-item">
+          <p class="ri-cat">
+            <span class="catbadge ${catClass}" style="font-size:10px;padding:3px 9px;">${q.cat}</span>
+            <span class="ri-miss">誤答 ${s.wrong}回 / 解答 ${s.attempts}回</span>
+          </p>
+          <p class="ri-q">${q.q}</p>
+          <button class="ri-toggle" data-idx="${idx}">解説を見る ▾</button>
+          <p class="ri-ans" id="wlAns-${idx}" style="display:none;">正解: ${OPT_LABELS[q.ans]}. ${q.choices[q.ans]}</p>
+          <p class="ri-exp" id="wlExp-${idx}">${q.exp}</p>
+        </div>
+      `;
+    }).join('');
+
+    listDiv.querySelectorAll('.ri-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.idx;
+        const exp = document.getElementById(`wlExp-${idx}`);
+        const ans = document.getElementById(`wlAns-${idx}`);
+        const isOpen = exp.classList.contains('is-open');
+        exp.classList.toggle('is-open');
+        ans.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? '解説を見る ▾' : '解説を閉じる ▴';
+      });
+    });
+  }
+
+  document.getElementById('wlBackBtn').addEventListener('click', renderHome);
+  document.getElementById('wlStartBtn').addEventListener('click', () => {
+    if (weakIds.length > 0) startQuiz('weak');
+  });
+}
+
+/* =========================================================
+   出題セッションの開始
+   ========================================================= */
+function startQuiz(mode) {
+  const stats = loadStats();
+  state.mode = mode;
+  if (mode === 'weak') {
+    state.activeIds = getWeakIds(stats);
+  } else {
+    state.activeIds = QUESTIONS.map(q => q.id);
+  }
+  state.current = 0;
+  state.score = 0;
+  state.answered = new Array(state.activeIds.length).fill(null);
+  state.screen = "quiz";
+  renderQuestion();
+}
+
+/* =========================================================
+   出題画面
+   ========================================================= */
+function renderQuestion() {
+  const app = document.getElementById('app');
+  const sessionTotal = state.activeIds.length;
+  const qId = state.activeIds[state.current];
+  const item = QUESTIONS_BY_ID[qId];
+  const userAns = state.answered[state.current];
+  const answeredCount = state.answered.filter(a => a !== null).length;
+  const catClass = CAT_CLASS[item.cat] || "cat-1";
+  const isWeakMode = state.mode === 'weak';
+
+  app.innerHTML = `
+    <div class="wl-header" style="margin-bottom:14px;">
+      <button class="back-btn" id="quizHomeBtn">${ICONS.back}ホームに戻る</button>
+      ${isWeakMode ? `<span class="mode-flag">苦手問題モード</span>` : ``}
+    </div>
+    <div class="quiz-meta">
+      <span class="qnum">問題 ${state.current + 1} / ${sessionTotal}</span>
+      <span class="catbadge ${catClass}">${item.cat}</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill ${isWeakMode ? 'is-weak' : ''}" style="width:${(state.current / sessionTotal * 100)}%"></div>
+    </div>
+    <p class="question-text">${item.q}</p>
+    <div class="choices" id="choices"></div>
+    <div id="explanation"></div>
+    <div class="nav-row">
+      <button class="btn btn-ghost" id="prevBtn" ${state.current === 0 ? 'disabled' : ''}>← 前へ</button>
+      <span class="score-mini">正解 ${state.score} / ${answeredCount}</span>
+      <button class="btn btn-primary" id="nextBtn">${state.current === sessionTotal - 1 ? '結果を見る' : '次へ →'}</button>
+    </div>
+  `;
+
+  /* ホームボタンは他の描画処理より先に必ずイベントを登録する。
+     これより下の処理（選択肢生成・解説表示）で例外が出ても、
+     ホームボタンだけは確実に機能するようにする。
+     途中離脱しても採点はクイズ完了時にしか記録されないため、
+     確認ダイアログなしで即座にホームへ戻す（環境によりconfirm()が
+     機能しないケースがあるため、それに依存しない設計とする）。 */
+  document.getElementById('quizHomeBtn').addEventListener('click', renderHome);
+
+  const choicesDiv = document.getElementById('choices');
+  item.choices.forEach((choiceText, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    if (userAns !== null) {
+      if (i === item.ans) btn.classList.add('choice-correct');
+      else if (i === userAns) btn.classList.add('choice-wrong');
+    }
+    btn.innerHTML = `<span class="opt-label">${OPT_LABELS[i]}</span><span class="opt-text">${choiceText}</span>`;
+    btn.disabled = userAns !== null;
+    btn.addEventListener('click', () => handleAnswer(i));
+    choicesDiv.appendChild(btn);
+  });
+
+  const expDiv = document.getElementById('explanation');
+  if (userAns !== null) {
+    const isCorrect = userAns === item.ans;
+    expDiv.innerHTML = `
+      <div class="explanation ${isCorrect ? '' : 'is-wrong'}">
+        <span class="result-tag ${isCorrect ? 'ok' : 'bad'}">${isCorrect ? '○ 正解' : '× 不正解'}</span>
+        <p class="exp-text">${item.exp}</p>
+      </div>
+    `;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', goPrev);
+  document.getElementById('nextBtn').addEventListener('click', goNext);
+}
+
+function handleAnswer(choiceIndex) {
+  if (state.answered[state.current] !== null) return;
+  const qId = state.activeIds[state.current];
+  const item = QUESTIONS_BY_ID[qId];
+  state.answered[state.current] = choiceIndex;
+  if (choiceIndex === item.ans) state.score++;
+  renderQuestion();
+}
+
+function goPrev() {
+  if (state.current > 0) { state.current--; renderQuestion(); }
+}
+
+function goNext() {
+  if (state.answered[state.current] === null) return;
+  if (state.current === state.activeIds.length - 1) {
+    finishQuiz();
+  } else {
+    state.current++;
+    renderQuestion();
+  }
+}
+
+/* =========================================================
+   採点・履歴更新・結果画面
+   ========================================================= */
+function finishQuiz() {
+  const stats = loadStats();
+  state.activeIds.forEach((qId, i) => {
+    const item = QUESTIONS_BY_ID[qId];
+    const isCorrect = state.answered[i] === item.ans;
+    recordAnswer(stats, qId, isCorrect);
+  });
+  saveStats(stats);
+  state.screen = "result";
+  renderResult(stats);
+}
+
+function renderResult(statsAfter) {
+  const app = document.getElementById('app');
+  const sessionTotal = state.activeIds.length;
+  const pct = Math.round(state.score / sessionTotal * 100);
+
+  let msg;
+  if (pct >= 90) msg = '素晴らしい理解度です。';
+  else if (pct >= 70) msg = 'よく理解できています。';
+  else if (pct >= 50) msg = '基礎は押さえています。復習でさらに定着を。';
+  else msg = '苦手分野を中心に復習しましょう。';
+
+  const stats = CAT_LIST.map(cat => {
+    const idsInCat = state.activeIds.filter(id => QUESTIONS_BY_ID[id].cat === cat);
+    let scoreForCat = 0;
+    idsInCat.forEach(id => {
+      const i = state.activeIds.indexOf(id);
+      if (state.answered[i] === QUESTIONS_BY_ID[id].ans) scoreForCat++;
+    });
+    return { cat, total: idsInCat.length, score: scoreForCat };
+  }).filter(s => s.total > 0);
+
+  const newWeakCount = getWeakIds(statsAfter).length;
+
+  app.innerHTML = `
+    <div class="result-hero">
+      <p class="r-label">${state.mode === 'weak' ? '苦手問題 復習結果' : '最終結果'}</p>
+      <p class="r-score">${state.score}<span> / ${sessionTotal}</span></p>
+      <p class="r-msg">${msg}</p>
+    </div>
+    <div class="stat-grid ${stats.length > 3 ? 'wide-7' : ''}">
+      ${stats.map(s => `
+        <div class="stat-card">
+          <p class="s-cat">${s.cat}</p>
+          <p class="s-val">${s.score} / ${s.total}</p>
+        </div>
+      `).join('')}
+    </div>
+    <div class="weak-note">
+      ${ICONS.target}
+      <span>現在の苦手問題数：${newWeakCount}問。ホーム画面からいつでも苦手問題だけの復習ができます。</span>
+    </div>
+    <div class="action-row">
+      <button class="btn btn-ghost" id="reviewBtn">今回間違えた問題を見る</button>
+      <button class="btn btn-primary" id="retryBtn">${ICONS.refresh}もう一度挑戦</button>
+    </div>
+    <div class="home-link-row">
+      <button class="link-btn" id="resultHomeBtn">${ICONS.back}ホームに戻る</button>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+  `;
+
+  document.getElementById('retryBtn').addEventListener('click', () => startQuiz(state.mode));
+  document.getElementById('resultHomeBtn').addEventListener('click', renderHome);
+  document.getElementById('reviewBtn').addEventListener('click', toggleSessionReview);
+}
+
+function toggleSessionReview() {
+  const list = document.getElementById('reviewList');
+  if (list.dataset.open === '1') { list.innerHTML = ''; list.dataset.open = '0'; return; }
+  list.dataset.open = '1';
+
+  const wrongItems = state.activeIds
+    .map((qId, i) => ({ qId, i }))
+    .filter(o => state.answered[o.i] !== QUESTIONS_BY_ID[o.qId].ans);
+
+  if (wrongItems.length === 0) {
+    list.innerHTML = `<p class="empty-note">すべて正解でした。</p>`;
+    return;
+  }
+
+  list.innerHTML = wrongItems.map(o => {
+    const q = QUESTIONS_BY_ID[o.qId];
+    const catClass = CAT_CLASS[q.cat] || "cat-1";
+    return `
+      <div class="review-item">
+        <p class="ri-cat"><span class="catbadge ${catClass}" style="font-size:10px;padding:3px 9px;">${q.cat}</span></p>
+        <p class="ri-q">${q.q}</p>
+        <p class="ri-ans">正解: ${OPT_LABELS[q.ans]}. ${q.choices[q.ans]}</p>
+        <p class="ri-exp is-open">${q.exp}</p>
+      </div>
+    `;
+  }).join('');
+}
+
+/* =========================================================
+   起動
+   ========================================================= */
+renderHome();
+</script>
+</body>
+</html>
